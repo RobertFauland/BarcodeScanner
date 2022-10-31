@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
     <title>Scandit Simple Sample</title>
     <script src="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
@@ -74,10 +75,11 @@
 ></scandit-barcode-picker>
 
 <script>
+    let barcode;
     const barcodePickerElement = document.getElementById("barcode-picker");
 
     barcodePickerElement.addEventListener("scan", (scanResult) => {
-        const barcode = scanResult.detail.barcodes[0];
+        barcode = scanResult.detail.barcodes[0];
         const symbology = ScanditSDK.Barcode.Symbology.toHumanizedName(barcode.symbology);
 
         document.getElementById("barcode-result").innerText = `${barcode.symbology} ${barcode.data}`;
@@ -96,11 +98,11 @@
             barcodePickerElement.barcodePicker.setVisible(true).resumeScanning();
         });
     }
-    const http = new XMLHttpRequest()
+    const https = new XMLHttpsRequest()
+    https.open("GET", "https://opengtindb.org/?ean="+barcode+"&cmd=query&queryid=400000000")
 
-    http.open("GET", "http://opengtindb.org/?ean=9000331604275&cmd=query&queryid=400000000")
-    http.send()
-    http.onload = () => console.log(http.responseText)
+    https.send()
+    https.onload = () => console.log(http.responseText)
 </script>
 
 </body>

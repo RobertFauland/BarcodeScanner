@@ -1,4 +1,4 @@
-GET http://opengtindb.org/?ean=9000331604275&cmd=query&queryid=400000000
+GET http://opengtindb.org/?ean=9070000001032&cmd=query&queryid=400000000
 Accept: application/
 
 ###
